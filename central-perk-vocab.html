@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>واژه‌نامهٔ سنترال پرک</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #241512;
+    --espresso-2: #2E1C17;
+    --cream: #F2E4C9;
+    --cream-dim: #D8C6A5;
+    --mustard: #E3A32B;
+    --mustard-dim: #B87F1F;
+    --brick: #C1502F;
+    --sage: #7CA06B;
+    --line: #6B4A3A;
+    --radius-card: 26px;
+    --radius-pill: 999px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --espresso: #FBF3E4;
+      --espresso-2: #F4E8D2;
+      --cream: #2E1C17;
+      --cream-dim: #5A4233;
+      --line: #D8C09A;
+    }
+  }
+  :root[data-theme="light"] {
+    --espresso: #FBF3E4;
+    --espresso-2: #F4E8D2;
+    --cream: #2E1C17;
+    --cream-dim: #5A4233;
+    --line: #D8C09A;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--espresso);
+    color: var(--cream);
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100%;
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(227,163,43,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(193,80,47,0.12), transparent 55%);
+  }
+  .en { font-family: 'Baloo 2', 'Vazirmatn', sans-serif; direction: ltr; unicode-bidi: isolate; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  header.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand .mug {
+    width: 46px; height: 46px; border-radius: 14px;
+    background: linear-gradient(155deg, var(--mustard), var(--brick));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  }
+  h1 {
+    margin: 0; font-size: 1.5rem; font-weight: 800; line-height: 1.25;
+  }
+  .brand .sub { margin: 2px 0 0; font-size: 0.85rem; color: var(--cream-dim); }
+  .theme-btn {
+    background: none; border: 1px solid var(--line); color: var(--cream);
+    border-radius: var(--radius-pill); width: 40px; height: 40px;
+    font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  }
+
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--espresso-2);
+    padding: 5px; border-radius: var(--radius-pill); margin-bottom: 24px;
+    border: 1px solid var(--line);
+  }
+  nav.tabs button {
+    flex: 1; padding: 10px 8px; border: none; border-radius: var(--radius-pill);
+    background: transparent; color: var(--cream-dim); font-family: inherit;
+    font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: background .18s, color .18s;
+  }
+  nav.tabs button.active { background: var(--mustard); color: #241512; }
+
+  section { display: none; }
+  section.active { display: block; }
+
+  /* --- Study tab --- */
+  .progress-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; font-size: 0.85rem; color: var(--cream-dim);
+  }
+  .progress-row .chip {
+    background: var(--espresso-2); border: 1px solid var(--line);
+    padding: 5px 12px; border-radius: var(--radius-pill);
+  }
+  .progress-bar {
+    height: 5px; background: var(--espresso-2); border-radius: 3px; overflow: hidden; margin-bottom: 26px;
+  }
+  .progress-bar > div { height: 100%; background: var(--mustard); transition: width .3s; }
+
+  .stage {
+    perspective: 1400px;
+    margin-bottom: 22px;
+  }
+  .card {
+    position: relative;
+    height: 320px;
+    border-radius: var(--radius-card);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform .45s cubic-bezier(.2,.7,.3,1);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .face {
+    position: absolute; inset: 0;
+    border-radius: var(--radius-card);
+    backface-visibility: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 30px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .face.front {
+    background: linear-gradient(160deg, var(--espresso-2), #1c110d);
+  }
+  .face.back {
+    background: linear-gradient(160deg, var(--mustard), var(--brick));
+    color: #2A1608;
+    transform: rotateY(180deg);
+  }
+  .face .tag {
+    position: absolute; top: 16px; inset-inline-start: 18px;
+    font-size: 0.72rem; color: var(--cream-dim); border: 1px solid var(--line);
+    padding: 3px 10px; border-radius: var(--radius-pill);
+  }
+  .face.back .tag { color: rgba(42,22,8,0.65); border-color: rgba(42,22,8,0.3); }
+  .face .word { font-size: 2.5rem; font-weight: 700; margin: 0 0 10px; word-break: break-word; }
+  .face .hint { font-size: 0.85rem; color: var(--cream-dim); margin: 0; }
+  .face.back .meaning { font-size: 1.7rem; font-weight: 700; margin: 0 0 12px; }
+  .face.back .example { font-size: 0.95rem; line-height: 1.6; opacity: 0.85; }
+  .empty-hint { font-size: 0.8rem; color: rgba(42,22,8,0.7); margin-top: 14px; }
+
+  .controls-row {
+    display: flex; gap: 10px; margin-bottom: 10px;
+  }
+  .controls-row button {
+    flex: 1; padding: 14px 10px; border-radius: 16px; border: none;
+    font-family: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .btn-unknown { background: rgba(193,80,47,0.18); color: #E8917A; border: 1px solid rgba(193,80,47,0.4) !important; }
+  .btn-known { background: rgba(124,160,107,0.18); color: #A9CC97; border: 1px solid rgba(124,160,107,0.4) !important; }
+  .util-row { display: flex; gap: 10px; justify-content: center; }
+  .util-row button {
+    background: none; border: 1px solid var(--line); color: var(--cream-dim);
+    padding: 8px 16px; border-radius: var(--radius-pill); font-family: inherit;
+    font-size: 0.82rem; cursor: pointer;
+  }
+
+  /* --- Manage tab --- */
+  .search-box {
+    width: 100%; padding: 13px 16px; border-radius: 16px; border: 1px solid var(--line);
+    background: var(--espresso-2); color: var(--cream); font-family: inherit; font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+  .search-box::placeholder { color: var(--cream-dim); }
+
+  .add-panel {
+    border: 1px solid var(--line); border-radius: 20px; padding: 16px; margin-bottom: 22px;
+    background: var(--espresso-2);
+  }
+  .add-panel h3 { margin: 0 0 4px; font-size: 0.95rem; }
+  .add-panel p.hint { margin: 0 0 12px; font-size: 0.8rem; color: var(--cream-dim); line-height: 1.6; }
+  .add-panel textarea {
+    width: 100%; min-height: 90px; resize: vertical; padding: 12px 14px;
+    border-radius: 14px; border: 1px solid var(--line); background: var(--espresso);
+    color: var(--cream); font-family: inherit; font-size: 0.9rem; margin-bottom: 10px;
+  }
+  .add-panel .row2 { display: flex; gap: 10px; }
+  .add-panel button.add-btn {
+    background: var(--mustard); color: #241512; border: none; border-radius: 14px;
+    padding: 11px 18px; font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  }
+  .add-panel .msg { font-size: 0.8rem; margin-top: 8px; min-height: 1em; }
+  .add-panel .msg.ok { color: var(--sage); }
+  .add-panel .msg.err { color: var(--brick); }
+
+  .word-list { border-top: 1px solid var(--line); }
+  .word-row {
+    display: flex; align-items: center; gap: 12px; padding: 13px 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .word-row .wr-en { font-size: 1.05rem; font-weight: 700; min-width: 108px; }
+  .word-row .wr-fa { flex: 1; font-size: 0.92rem; color: var(--cream-dim); }
+  .word-row .wr-ep { font-size: 0.7rem; color: var(--cream-dim); border: 1px solid var(--line); padding: 2px 8px; border-radius: var(--radius-pill); flex-shrink: 0; }
+  .word-row .wr-del {
+    background: none; border: none; color: var(--brick); font-size: 1.1rem; cursor: pointer; padding: 4px 6px; flex-shrink: 0;
+  }
+  .empty-state { text-align: center; padding: 40px 10px; color: var(--cream-dim); font-size: 0.9rem; }
+
+  footer.count { text-align: center; margin-top: 18px; font-size: 0.78rem; color: var(--cream-dim); }
+
+  @media (max-width: 420px) {
+    .face .word { font-size: 2rem; }
+    .card { height: 290px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <div class="mug">☕</div>
+      <div>
+        <h1>واژه‌نامهٔ سنترال پرک</h1>
+        <p class="sub">لغت‌های زیرنویس فرندز، برای مرور روزانه</p>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeBtn" title="تغییر تم">◐</button>
+  </header>
+
+  <nav class="tabs">
+    <button data-tab="study" class="active">مطالعه</button>
+    <button data-tab="manage">مدیریت کلمات</button>
+  </nav>
+
+  <section id="tab-study" class="active">
+    <div class="progress-row">
+      <span class="chip" id="dueChip">۰ کلمه در نوبت</span>
+      <span class="chip" id="knownChip">۰ بلدم</span>
+    </div>
+    <div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
+
+    <div class="stage">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="tag" id="epTagFront">—</span>
+          <p class="hint">روی کارت بزن تا معنی رو ببینی</p>
+          <p class="word en" id="wordFront">—</p>
+        </div>
+        <div class="face back">
+          <span class="tag" id="epTagBack">—</span>
+          <p class="meaning" id="wordBack">—</p>
+          <p class="example" id="wordExample"></p>
+          <p class="empty-hint" id="emptyHint" style="display:none">از تب «مدیریت کلمات» چند تا کلمه اضافه کن</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <button class="btn-unknown" id="btnUnknown">↻ دوباره نشونش بده</button>
+      <button class="btn-known" id="btnKnown">✓ بلدم</button>
+    </div>
+    <div class="util-row">
+      <button id="btnShuffle">🔀 قاطی کن</button>
+      <button id="btnResetKnown">↺ ریست پیشرفت</button>
+    </div>
+  </section>
+
+  <section id="tab-manage">
+    <input class="search-box" id="searchBox" placeholder="جستجوی کلمه یا معنی…">
+
+    <div class="add-panel">
+      <h3>افزودن کلمهٔ تازه</h3>
+      <p class="hint">یک کلمه در هر خط، به‌صورت English: معنی فارسی — یا با پیست کردن چند خط با هم، همه‌شون یکجا اضافه می‌شن.</p>
+      <textarea id="bulkInput" placeholder="مثلا:&#10;stubborn: لجباز&#10;overwhelmed: غرق‌شده، تحت فشار"></textarea>
+      <div class="row2">
+        <input type="text" id="epInput" placeholder="برچسب اختیاری (مثلا 1x05)" style="flex:1;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--espresso);color:var(--cream);font-family:inherit;font-size:0.85rem;">
+        <button class="add-btn" id="addBtn">افزودن</button>
+      </div>
+      <p class="msg" id="addMsg"></p>
+    </div>
+
+    <div class="word-list" id="wordList"></div>
+    <div class="empty-state" id="emptyState" style="display:none">هنوز کلمه‌ای اضافه نکردی.</div>
+  </section>
+
+  <footer class="count" id="footerCount"></footer>
+</div>
+
+<script>
+const STORAGE_KEY = 'centralperk-vocab-v1';
+const SEED = [{"en": "able", "fa": "قادر، توانا", "ep": "1x03"}, {"en": "across", "fa": "آن‌طرف، روبه‌رو", "ep": "1x03"}, {"en": "adore", "fa": "خیلی دوست داشتن", "ep": "1x03"}, {"en": "against", "fa": "در برابر؛ در مقایسه با", "ep": "1x03"}, {"en": "ahem", "fa": "اَهم (صدای جلب توجه)", "ep": "1x03"}, {"en": "alive", "fa": "زنده، سرزنده", "ep": "1x03"}, {"en": "alphabet", "fa": "الفبا", "ep": "1x03"}, {"en": "annoying", "fa": "آزاردهنده", "ep": "1x03"}, {"en": "attention", "fa": "توجه", "ep": "1x03"}, {"en": "bashing", "fa": "بدگویی کردن", "ep": "1x03"}, {"en": "blow", "fa": "ضربه", "ep": "1x03"}, {"en": "boats", "fa": "قایق‌ها", "ep": "1x03"}, {"en": "bother", "fa": "اذیت کردن", "ep": "1x03"}, {"en": "brought", "fa": "آوردم", "ep": "1x03"}, {"en": "buddy", "fa": "رفیق", "ep": "1x03"}, {"en": "bunny", "fa": "خرگوش کوچولو", "ep": "1x03"}, {"en": "cancer", "fa": "سرطان", "ep": "1x03"}, {"en": "cappuccino", "fa": "کاپوچینو", "ep": "1x03"}, {"en": "cartoon", "fa": "کارتون", "ep": "1x03"}, {"en": "chase", "fa": "دنبال کردن", "ep": "1x03"}, {"en": "chews", "fa": "می‌جود", "ep": "1x03"}, {"en": "chop", "fa": "تکه‌ای گوشت", "ep": "1x03"}, {"en": "cigarette", "fa": "سیگار", "ep": "1x03"}, {"en": "cigarettes", "fa": "سیگارها", "ep": "1x03"}, {"en": "collect", "fa": "جمع کردن", "ep": "1x03"}, {"en": "comes", "fa": "می‌آید", "ep": "1x03"}, {"en": "complaining", "fa": "غر زدن", "ep": "1x03"}, {"en": "connecticut", "fa": "کانتیکت (ایالت)", "ep": "1x03"}, {"en": "constant", "fa": "دائمی، مداوم", "ep": "1x03"}, {"en": "contest", "fa": "مسابقه", "ep": "1x03"}, {"en": "correctly", "fa": "درست، صحیح", "ep": "1x03"}, {"en": "coyotes", "fa": "کایوت‌ها", "ep": "1x03"}, {"en": "cracking", "fa": "ترق‌ترق کردن", "ep": "1x03"}, {"en": "credited", "fa": "واریز شد", "ep": "1x03"}, {"en": "crooked", "fa": "کج، ناصاف", "ep": "1x03"}, {"en": "cushions", "fa": "کوسن‌ها؛ نرم می‌کند", "ep": "1x03"}, {"en": "deal", "fa": "معامله؛ موضوع", "ep": "1x03"}, {"en": "dear", "fa": "عزیز", "ep": "1x03"}, {"en": "debt", "fa": "بدهی", "ep": "1x03"}, {"en": "decaf", "fa": "قهوهٔ بدون کافئین", "ep": "1x03"}, {"en": "decided", "fa": "تصمیم گرفتم", "ep": "1x03"}, {"en": "dimon", "fa": "دایمون (اسم)", "ep": "1x03"}, {"en": "disease", "fa": "بیماری", "ep": "1x03"}, {"en": "distance", "fa": "فاصله", "ep": "1x03"}, {"en": "earn", "fa": "به دست آوردن", "ep": "1x03"}, {"en": "emphysema", "fa": "آمفیزم (بیماری ریه)", "ep": "1x03"}, {"en": "endearing", "fa": "دوست‌داشتنی", "ep": "1x03"}, {"en": "ew", "fa": "اَه! (چندش)", "ep": "1x03"}, {"en": "excellent", "fa": "عالی", "ep": "1x03"}, {"en": "extra", "fa": "اضافه", "ep": "1x03"}, {"en": "fair", "fa": "منصفانه", "ep": "1x03"}, {"en": "fantastic", "fa": "فوق‌العاده", "ep": "1x03"}, {"en": "farm", "fa": "مزرعه", "ep": "1x03"}, {"en": "flaw", "fa": "عیب، نقص", "ep": "1x03"}, {"en": "flaws", "fa": "عیب‌ها", "ep": "1x03"}, {"en": "floating", "fa": "شناور", "ep": "1x03"}, {"en": "gave", "fa": "داد (گذشتهٔ give)", "ep": "1x03"}, {"en": "gee", "fa": "وای!", "ep": "1x03"}, {"en": "gets", "fa": "می‌گیرد، می‌شود", "ep": "1x03"}, {"en": "giant", "fa": "غول‌پیکر", "ep": "1x03"}, {"en": "gloves", "fa": "دستکش‌ها", "ep": "1x03"}, {"en": "gotta", "fa": "باید (مخفف got to)", "ep": "1x03"}, {"en": "gross", "fa": "چندش‌آور", "ep": "1x03"}, {"en": "guard", "fa": "مراقبت؛ گارد", "ep": "1x03"}, {"en": "ha", "fa": "ها (صدای خنده)", "ep": "1x03"}, {"en": "hair", "fa": "مو", "ep": "1x03"}, {"en": "hall", "fa": "راهرو", "ep": "1x03"}, {"en": "hasidic", "fa": "حسیدی (یهودی ارتدوکس)", "ep": "1x03"}, {"en": "hasselhoff", "fa": "هاسلهوف (نام خانوادگی)", "ep": "1x03"}, {"en": "hat", "fa": "کلاه", "ep": "1x03"}, {"en": "hear", "fa": "شنیدن", "ep": "1x03"}, {"en": "heard", "fa": "شنیدم", "ep": "1x03"}, {"en": "heart", "fa": "قلب", "ep": "1x03"}, {"en": "heh", "fa": "هه (خندهٔ کوتاه)", "ep": "1x03"}, {"en": "herd", "fa": "گله", "ep": "1x03"}, {"en": "hitchhiker", "fa": "اتواستاپ‌زن", "ep": "1x03"}, {"en": "hmm", "fa": "هومم", "ep": "1x03"}, {"en": "hold", "fa": "نگه‌داشتن", "ep": "1x03"}, {"en": "honest", "fa": "صادق", "ep": "1x03"}, {"en": "honey", "fa": "عزیزم", "ep": "1x03"}, {"en": "horses", "fa": "اسب‌ها", "ep": "1x03"}, {"en": "huh", "fa": "ها؟", "ep": "1x03"}, {"en": "iced", "fa": "یخ، سرد", "ep": "1x03"}, {"en": "inconvenience", "fa": "زحمت", "ep": "1x03"}, {"en": "indeed", "fa": "واقعاً", "ep": "1x03"}, {"en": "innate", "fa": "ذاتی", "ep": "1x03"}, {"en": "instead", "fa": "به‌جای", "ep": "1x03"}, {"en": "jewelers", "fa": "جواهرفروش‌ها", "ep": "1x03"}, {"en": "karmic", "fa": "مربوط به کارما", "ep": "1x03"}, {"en": "knowing", "fa": "دانستن", "ep": "1x03"}, {"en": "knowledge", "fa": "دانش", "ep": "1x03"}, {"en": "knuckle", "fa": "بند انگشت", "ep": "1x03"}, {"en": "lamb", "fa": "بره", "ep": "1x03"}, {"en": "latte", "fa": "لاته", "ep": "1x03"}, {"en": "laughs", "fa": "می‌خندد", "ep": "1x03"}, {"en": "leather", "fa": "چرم", "ep": "1x03"}, {"en": "let", "fa": "اجازه دادن", "ep": "1x03"}, {"en": "lizzy", "fa": "لیزی (اسم)", "ep": "1x03"}, {"en": "loosely", "fa": "تقریبی، آزاد", "ep": "1x03"}, {"en": "measured", "fa": "سنجیده می‌شود", "ep": "1x03"}, {"en": "mention", "fa": "اشاره کردن", "ep": "1x03"}, {"en": "milner's", "fa": "مال میلنرها", "ep": "1x03"}, {"en": "minions", "fa": "نوچه‌ها", "ep": "1x03"}, {"en": "minute", "fa": "دقیقه", "ep": "1x03"}, {"en": "monthly", "fa": "ماهانه", "ep": "1x03"}, {"en": "naked", "fa": "برهنه", "ep": "1x03"}, {"en": "nicer", "fa": "دلپذیرتر", "ep": "1x03"}, {"en": "nicotine", "fa": "نیکوتین", "ep": "1x03"}, {"en": "notice", "fa": "متوجه شدن", "ep": "1x03"}, {"en": "nursery", "fa": "مهدکودک؛ اتاق بچه", "ep": "1x03"}, {"en": "ooh", "fa": "اوه!", "ep": "1x03"}, {"en": "ordered", "fa": "سفارش داد", "ep": "1x03"}, {"en": "otherwise", "fa": "در غیر این‌صورت", "ep": "1x03"}, {"en": "ouch", "fa": "آخ!", "ep": "1x03"}, {"en": "patch", "fa": "چسب، وصله", "ep": "1x03"}, {"en": "ate", "fa": "خورد", "ep": "1x03"}, {"en": "phoebe", "fa": "فیبی (اسم)", "ep": "1x03"}, {"en": "picking", "fa": "چیدن، ور رفتن", "ep": "1x03"}, {"en": "pleasure", "fa": "لذت", "ep": "1x03"}, {"en": "positions", "fa": "پُست‌ها", "ep": "1x03"}, {"en": "pretending", "fa": "وانمود کردن", "ep": "1x03"}, {"en": "pretty", "fa": "نسبتاً", "ep": "1x03"}, {"en": "pretzel", "fa": "پرتزل", "ep": "1x03"}, {"en": "probably", "fa": "احتمالاً", "ep": "1x03"}, {"en": "pronouncing", "fa": "تلفظ کردن", "ep": "1x03"}, {"en": "puff", "fa": "پک (سیگار)", "ep": "1x03"}, {"en": "rabbits", "fa": "خرگوش‌ها", "ep": "1x03"}, {"en": "realize", "fa": "پی بردن", "ep": "1x03"}, {"en": "relieved", "fa": "آسوده‌خاطر", "ep": "1x03"}, {"en": "rented", "fa": "اجاره کردیم", "ep": "1x03"}, {"en": "reward", "fa": "پاداش", "ep": "1x03"}, {"en": "rhyme", "fa": "شعر، قافیه", "ep": "1x03"}, {"en": "ridiculous", "fa": "مسخره", "ep": "1x03"}, {"en": "ross", "fa": "راس (اسم)", "ep": "1x03"}, {"en": "rough", "fa": "سخت، ناگوار", "ep": "1x03"}, {"en": "saltines", "fa": "کراکر نمکی", "ep": "1x03"}, {"en": "satan's", "fa": "مال شیطان", "ep": "1x03"}, {"en": "send", "fa": "فرستادن", "ep": "1x03"}, {"en": "sexy", "fa": "جذاب", "ep": "1x03"}, {"en": "skipping", "fa": "جست‌وخیز کردن", "ep": "1x03"}, {"en": "so", "fa": "خیلی؛ پس", "ep": "1x03"}, {"en": "sock", "fa": "جوراب", "ep": "1x03"}, {"en": "softball", "fa": "سافت‌بال", "ep": "1x03"}, {"en": "spent", "fa": "خرج کردی", "ep": "1x03"}, {"en": "statement", "fa": "صورت‌حساب", "ep": "1x03"}, {"en": "stealing", "fa": "دزدی کردن", "ep": "1x03"}, {"en": "stepped", "fa": "قدم گذاشت", "ep": "1x03"}, {"en": "steve", "fa": "استیو (اسم)", "ep": "1x03"}, {"en": "stick", "fa": "عدد، تکه", "ep": "1x03"}, {"en": "stupid", "fa": "احمقانه", "ep": "1x03"}, {"en": "subway", "fa": "مترو", "ep": "1x03"}, {"en": "tart", "fa": "تارت (شیرینی)", "ep": "1x03"}, {"en": "terrible", "fa": "وحشتناک", "ep": "1x03"}, {"en": "tinfoil", "fa": "فویل آلومینیومی", "ep": "1x03"}, {"en": "tiny", "fa": "ریز، کوچولو", "ep": "1x03"}, {"en": "translated", "fa": "ترجمه‌شده", "ep": "1x03"}, {"en": "uh", "fa": "اِ... (مکث)", "ep": "1x03"}, {"en": "unbelievable", "fa": "باورنکردنی", "ep": "1x03"}, {"en": "underwear", "fa": "لباس زیر", "ep": "1x03"}, {"en": "unfair", "fa": "ناعادلانه", "ep": "1x03"}, {"en": "universe", "fa": "جهان", "ep": "1x03"}, {"en": "viking", "fa": "وایکینگ", "ep": "1x03"}, {"en": "vowels", "fa": "حروف صدادار", "ep": "1x03"}, {"en": "vu", "fa": "بخشی از déjà vu (دژاوو)", "ep": "1x03"}, {"en": "warden", "fa": "رئیس زندان", "ep": "1x03"}, {"en": "wearing", "fa": "پوشیدن", "ep": "1x03"}, {"en": "whoa", "fa": "وای!", "ep": "1x03"}, {"en": "within", "fa": "ظرف، در عرض", "ep": "1x03"}, {"en": "without", "fa": "بدون", "ep": "1x03"}, {"en": "worried", "fa": "نگران", "ep": "1x03"}, {"en": "worse", "fa": "بدتر", "ep": "1x03"}, {"en": "worth", "fa": "ارزش داشتن", "ep": "1x03"}, {"en": "wrist", "fa": "مچ دست", "ep": "1x03"}, {"en": "yardstick", "fa": "معیار، ملاک", "ep": "1x03"}, {"en": "activity", "fa": "فعالیت", "ep": "1x04"}, {"en": "actually", "fa": "راستش، در واقع", "ep": "1x04"}, {"en": "admit", "fa": "اعتراف کردن", "ep": "1x04"}, {"en": "adviser", "fa": "مشاور", "ep": "1x04"}, {"en": "arturo", "fa": "آرتورو (اسم)", "ep": "1x04"}, {"en": "ass", "fa": "کون (غیررسمی)", "ep": "1x04"}, {"en": "attractive", "fa": "جذاب", "ep": "1x04"}, {"en": "bar", "fa": "تکه (شکلات‌بار)", "ep": "1x04"}, {"en": "barry", "fa": "بری (اسم)", "ep": "1x04"}, {"en": "basically", "fa": "اساساً", "ep": "1x04"}, {"en": "beans", "fa": "لوبیاها", "ep": "1x04"}, {"en": "beanstalk", "fa": "ساقهٔ لوبیا", "ep": "1x04"}, {"en": "bird's", "fa": "مال پرنده", "ep": "1x04"}, {"en": "bitch", "fa": "عوضی (ناسزا)", "ep": "1x04"}, {"en": "blobbies", "fa": "تکه‌های کوچک (ساختگی)", "ep": "1x04"}, {"en": "bonehead", "fa": "کله‌پوک", "ep": "1x04"}, {"en": "boobs", "fa": "سینه‌ها", "ep": "1x04"}, {"en": "buddy", "fa": "رفیق", "ep": "1x04"}, {"en": "bunny", "fa": "خرگوش کوچولو", "ep": "1x04"}, {"en": "butt", "fa": "باسن", "ep": "1x04"}, {"en": "campaign", "fa": "کارزار، کمپین", "ep": "1x04"}, {"en": "card", "fa": "کارت", "ep": "1x04"}, {"en": "cave", "fa": "غار", "ep": "1x04"}, {"en": "coma", "fa": "کما", "ep": "1x04"}, {"en": "completely", "fa": "کاملاً", "ep": "1x04"}, {"en": "complicated", "fa": "پیچیده", "ep": "1x04"}, {"en": "considered", "fa": "در نظر گرفته", "ep": "1x04"}, {"en": "constantly", "fa": "دائماً", "ep": "1x04"}, {"en": "consummated", "fa": "تکمیل شد (رابطه)", "ep": "1x04"}, {"en": "costumes", "fa": "لباس‌های مبدل", "ep": "1x04"}, {"en": "couple", "fa": "چند تا", "ep": "1x04"}, {"en": "crease", "fa": "منطقهٔ دروازه (هاکی)", "ep": "1x04"}, {"en": "crust", "fa": "خمیر پیتزا", "ep": "1x04"}, {"en": "cry", "fa": "گریه کردن", "ep": "1x04"}, {"en": "curiously", "fa": "به‌طرز عجیبی", "ep": "1x04"}, {"en": "dairy", "fa": "لبنیات", "ep": "1x04"}, {"en": "dead", "fa": "مرده", "ep": "1x04"}, {"en": "deaf", "fa": "ناشنوا", "ep": "1x04"}, {"en": "deal", "fa": "موضوع؛ big deal = موضوع مهم", "ep": "1x04"}, {"en": "death", "fa": "مرگ", "ep": "1x04"}, {"en": "decide", "fa": "تصمیم گرفتن", "ep": "1x04"}, {"en": "definitely", "fa": "قطعاً", "ep": "1x04"}, {"en": "dented", "fa": "فرورفته", "ep": "1x04"}, {"en": "dirt", "fa": "خبر داغ (اصطلاح)", "ep": "1x04"}, {"en": "dora", "fa": "دورا (لقب شوخی)", "ep": "1x04"}, {"en": "dough", "fa": "خمیر", "ep": "1x04"}, {"en": "downstairs", "fa": "طبقهٔ پایین", "ep": "1x04"}, {"en": "dumping", "fa": "رها کردن (کسی)", "ep": "1x04"}, {"en": "duplex", "fa": "واحد دوبلکس", "ep": "1x04"}, {"en": "earned", "fa": "به‌دست آوردم", "ep": "1x04"}, {"en": "either", "fa": "یا", "ep": "1x04"}, {"en": "elbows", "fa": "آرنج‌ها", "ep": "1x04"}, {"en": "emergency", "fa": "اورژانس", "ep": "1x04"}, {"en": "ex", "fa": "سابق", "ep": "1x04"}, {"en": "exciting", "fa": "هیجان‌انگیز", "ep": "1x04"}, {"en": "excuse", "fa": "ببخشید", "ep": "1x04"}, {"en": "fans", "fa": "هواداران", "ep": "1x04"}, {"en": "fica", "fa": "مالیات تأمین اجتماعی آمریکا", "ep": "1x04"}, {"en": "firm", "fa": "شرکت (حقوقی)", "ep": "1x04"}, {"en": "flowers", "fa": "گل‌ها", "ep": "1x04"}, {"en": "foam", "fa": "فوم", "ep": "1x04"}, {"en": "freak", "fa": "آدم عجیب", "ep": "1x04"}, {"en": "frost", "fa": "یخ‌بندان", "ep": "1x04"}, {"en": "george", "fa": "جورج (اسم)", "ep": "1x04"}, {"en": "glow", "fa": "درخشش", "ep": "1x04"}, {"en": "glue", "fa": "چسب", "ep": "1x04"}, {"en": "gotta", "fa": "باید", "ep": "1x04"}, {"en": "grade", "fa": "پایهٔ تحصیلی", "ep": "1x04"}, {"en": "halloween", "fa": "هالووین", "ep": "1x04"}, {"en": "hitting", "fa": "زدن", "ep": "1x04"}, {"en": "hunger", "fa": "گرسنگی", "ep": "1x04"}, {"en": "hurley", "fa": "هرلی (اسم)", "ep": "1x04"}, {"en": "incredible", "fa": "باورنکردنی", "ep": "1x04"}, {"en": "independent", "fa": "مستقل", "ep": "1x04"}, {"en": "insecure", "fa": "بی‌اعتمادبه‌نفس", "ep": "1x04"}, {"en": "intelligent", "fa": "باهوش", "ep": "1x04"}, {"en": "jason", "fa": "جیسون (اسم)", "ep": "1x04"}, {"en": "judge", "fa": "قضاوت کردن", "ep": "1x04"}, {"en": "keepers", "fa": "نگه‌دارنده‌ها", "ep": "1x04"}, {"en": "kidding", "fa": "شوخی کردن", "ep": "1x04"}, {"en": "lambs", "fa": "بره‌ها", "ep": "1x04"}, {"en": "least", "fa": "کم‌ترین", "ep": "1x04"}, {"en": "leetch", "fa": "لیچ (اسم بازیکن)", "ep": "1x04"}, {"en": "less", "fa": "کم‌تر", "ep": "1x04"}, {"en": "losers", "fa": "بازنده‌ها", "ep": "1x04"}, {"en": "loud", "fa": "بلند", "ep": "1x04"}, {"en": "mad", "fa": "عصبانی", "ep": "1x04"}, {"en": "mediterranean", "fa": "مدیترانه‌ای", "ep": "1x04"}, {"en": "messier", "fa": "مسیه (اسم بازیکن)", "ep": "1x04"}, {"en": "mistake", "fa": "اشتباه", "ep": "1x04"}, {"en": "monopoly", "fa": "بازی مونوپولی", "ep": "1x04"}, {"en": "moonlight", "fa": "نور مهتاب", "ep": "1x04"}, {"en": "mushroom", "fa": "قارچ", "ep": "1x04"}, {"en": "napping", "fa": "چرت زدن", "ep": "1x04"}, {"en": "nectarines", "fa": "شلیل‌ها", "ep": "1x04"}, {"en": "ninety", "fa": "نود", "ep": "1x04"}, {"en": "nodded", "fa": "سرش را تکان داد", "ep": "1x04"}, {"en": "nuts", "fa": "دیوانه", "ep": "1x04"}, {"en": "omnipotent", "fa": "قادر مطلق", "ep": "1x04"}, {"en": "onion", "fa": "پیاز", "ep": "1x04"}, {"en": "orthodontist", "fa": "دندان‌پزشک ارتودنسی", "ep": "1x04"}, {"en": "outside", "fa": "بیرون", "ep": "1x04"}, {"en": "painkillers", "fa": "مسکن‌ها", "ep": "1x04"}, {"en": "pal", "fa": "رفیق", "ep": "1x04"}, {"en": "pants", "fa": "شلوار", "ep": "1x04"}, {"en": "paycheck", "fa": "چک حقوق", "ep": "1x04"}, {"en": "peaceful", "fa": "آرام", "ep": "1x04"}, {"en": "peach", "fa": "هلو", "ep": "1x04"}, {"en": "peaches", "fa": "هلوها", "ep": "1x04"}, {"en": "pee", "fa": "جیش کردن", "ep": "1x04"}, {"en": "pepper", "fa": "فلفل", "ep": "1x04"}, {"en": "pheebs", "fa": "فیبز (لقب فیبی)", "ep": "1x04"}, {"en": "phoebe", "fa": "فیبی (اسم)", "ep": "1x04"}, {"en": "pit", "fa": "هسته (میوه)", "ep": "1x04"}, {"en": "pittsburgh", "fa": "پیتسبورگ (شهر)", "ep": "1x04"}, {"en": "plastic", "fa": "پلاستیکی", "ep": "1x04"}, {"en": "possibilities", "fa": "امکانات", "ep": "1x04"}, {"en": "predicament", "fa": "وضعیت دشوار", "ep": "1x04"}, {"en": "pregnant", "fa": "باردار", "ep": "1x04"}, {"en": "prep", "fa": "آماده کردن", "ep": "1x04"}, {"en": "pretty", "fa": "تقریباً", "ep": "1x04"}, {"en": "probably", "fa": "احتمالاً", "ep": "1x04"}, {"en": "promoted", "fa": "ترفیع‌گرفته", "ep": "1x04"}, {"en": "rach", "fa": "راچ (لقب ریچل)", "ep": "1x04"}, {"en": "rangers", "fa": "رنجرز (تیم هاکی)", "ep": "1x04"}, {"en": "reality", "fa": "واقعیت", "ep": "1x04"}, {"en": "reason", "fa": "دلیل", "ep": "1x04"}, {"en": "reassure", "fa": "دلگرم کردن", "ep": "1x04"}, {"en": "rollerson", "fa": "رولرسون (اسم)", "ep": "1x04"}, {"en": "romantic", "fa": "عاشقانه", "ep": "1x04"}, {"en": "roughhousing", "fa": "شلوغ‌کاری", "ep": "1x04"}, {"en": "rubber", "fa": "لاستیک", "ep": "1x04"}, {"en": "rum", "fa": "رام (نوشیدنی)", "ep": "1x04"}, {"en": "satisfied", "fa": "راضی", "ep": "1x04"}, {"en": "seats", "fa": "صندلی‌ها", "ep": "1x04"}, {"en": "shut", "fa": "بسته؛ shut up=خفه‌شو", "ep": "1x04"}, {"en": "sick", "fa": "مریض", "ep": "1x04"}, {"en": "silence", "fa": "سکوت", "ep": "1x04"}, {"en": "slumber", "fa": "خواب؛ slumber party=مهمانی شبانه", "ep": "1x04"}, {"en": "snuffleupagus", "fa": "اسنافلوپاگوس (شوخی اسم)", "ep": "1x04"}, {"en": "specials", "fa": "پیشنهادهای ویژه", "ep": "1x04"}, {"en": "specifically", "fa": "دقیقاً", "ep": "1x04"}, {"en": "spots", "fa": "می‌بیند/پاس می‌دهد", "ep": "1x04"}, {"en": "spying", "fa": "جاسوسی کردن", "ep": "1x04"}, {"en": "steamed", "fa": "بخارداده‌شده", "ep": "1x04"}, {"en": "stephanopoulos", "fa": "استفانوپولوس (نام خانوادگی)", "ep": "1x04"}, {"en": "sticks", "fa": "چوب‌ها", "ep": "1x04"}, {"en": "stuff", "fa": "چیزها، وسایل", "ep": "1x04"}, {"en": "stunning", "fa": "خیره‌کننده", "ep": "1x04"}, {"en": "suit", "fa": "کت‌وشلوار", "ep": "1x04"}, {"en": "swear", "fa": "قسم خوردن", "ep": "1x04"}, {"en": "terrific", "fa": "فوق‌العاده", "ep": "1x04"}, {"en": "thought", "fa": "فکر کردم", "ep": "1x04"}, {"en": "through", "fa": "از میان", "ep": "1x04"}, {"en": "tie", "fa": "کراوات", "ep": "1x04"}, {"en": "tiki", "fa": "تیکی (سبک هاوایی)", "ep": "1x04"}, {"en": "tommy", "fa": "تامی (اسم)", "ep": "1x04"}, {"en": "took", "fa": "گرفت", "ep": "1x04"}, {"en": "toothless", "fa": "بی‌دندان", "ep": "1x04"}, {"en": "totally", "fa": "کاملاً", "ep": "1x04"}, {"en": "towel", "fa": "حوله", "ep": "1x04"}, {"en": "trashy", "fa": "بی‌کیفیت، مبتذل", "ep": "1x04"}, {"en": "trouble", "fa": "دردسر", "ep": "1x04"}, {"en": "turn", "fa": "نوبت", "ep": "1x04"}, {"en": "tweezers", "fa": "موچین", "ep": "1x04"}, {"en": "twister", "fa": "بازی توییستر", "ep": "1x04"}, {"en": "unflupie", "fa": "کلمهٔ ساختگی و بی‌معنی", "ep": "1x04"}, {"en": "unh", "fa": "آخ! (صدای زور زدن)", "ep": "1x04"}, {"en": "unless", "fa": "مگر اینکه", "ep": "1x04"}, {"en": "valentine", "fa": "کارت ولنتاین", "ep": "1x04"}, {"en": "vase", "fa": "گلدان", "ep": "1x04"}, {"en": "vegetarian", "fa": "گیاه‌خوار", "ep": "1x04"}, {"en": "village", "fa": "روستا؛ محله", "ep": "1x04"}, {"en": "visa", "fa": "ویزا", "ep": "1x04"}, {"en": "waitressing", "fa": "گارسونی کردن", "ep": "1x04"}, {"en": "wearing", "fa": "پوشیدن", "ep": "1x04"}, {"en": "weepers", "fa": "گریه‌کننده‌ها", "ep": "1x04"}, {"en": "whatever", "fa": "هر چی", "ep": "1x04"}, {"en": "whoa", "fa": "وای!", "ep": "1x04"}, {"en": "wild", "fa": "وحشی", "ep": "1x04"}, {"en": "wiped", "fa": "پاک کردم", "ep": "1x04"}, {"en": "wishes", "fa": "آرزوها", "ep": "1x04"}, {"en": "worth", "fa": "ارزش", "ep": "1x04"}];
+
+function loadWords() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  const seeded = SEED.map((w, i) => ({ id: 's' + i, en: w.en, fa: w.fa, ep: w.ep || '', known: false }));
+  saveWords(seeded);
+  return seeded;
+}
+function saveWords(list) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+}
+
+let words = loadWords();
+let deck = [];
+let deckPos = 0;
+let flipped = false;
+
+function buildDeck() {
+  deck = words.filter(w => !w.known);
+  if (deck.length === 0) deck = words.slice();
+  deckPos = 0;
+  flipped = false;
+}
+
+function faNum(n) {
+  const digits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return String(n).split('').map(c => digits[c] || c).join('');
+}
+
+function renderCard() {
+  const card = document.getElementById('card');
+  const front = document.getElementById('wordFront');
+  const back = document.getElementById('wordBack');
+  const ex = document.getElementById('wordExample');
+  const epF = document.getElementById('epTagFront');
+  const epB = document.getElementById('epTagBack');
+  const emptyHint = document.getElementById('emptyHint');
+
+  card.classList.remove('flipped');
+  flipped = false;
+
+  if (words.length === 0) {
+    front.textContent = 'خالیه';
+    back.textContent = '';
+    ex.textContent = '';
+    emptyHint.style.display = 'block';
+    epF.textContent = '—'; epB.textContent = '—';
+    return;
+  }
+  emptyHint.style.display = 'none';
+  const w = deck[deckPos];
+  front.textContent = w.en;
+  back.textContent = w.fa;
+  ex.textContent = w.ex || '';
+  epF.textContent = w.ep || 'واژه';
+  epB.textContent = w.ep || 'واژه';
+
+  const known = words.filter(x => x.known).length;
+  document.getElementById('dueChip').textContent = faNum(deck.length) + ' کلمه در نوبت';
+  document.getElementById('knownChip').textContent = faNum(known) + ' بلدم';
+  const pct = words.length ? Math.round((known / words.length) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function nextCard() {
+  if (deck.length === 0) { renderCard(); return; }
+  deckPos = (deckPos + 1) % deck.length;
+  if (deckPos === 0) buildDeck();
+  renderCard();
+}
+
+document.getElementById('card').addEventListener('click', () => {
+  if (words.length === 0) return;
+  flipped = !flipped;
+  document.getElementById('card').classList.toggle('flipped', flipped);
+});
+
+document.getElementById('btnKnown').addEventListener('click', () => {
+  if (words.length === 0) return;
+  const w = deck[deckPos];
+  const target = words.find(x => x.id === w.id);
+  if (target) target.known = true;
+  saveWords(words);
+  buildDeck();
+  renderCard();
+  renderManage();
+});
+document.getElementById('btnUnknown').addEventListener('click', () => {
+  if (words.length === 0) return;
+  nextCard();
+});
+document.getElementById('btnShuffle').addEventListener('click', () => {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  deckPos = 0;
+  renderCard();
+});
+document.getElementById('btnResetKnown').addEventListener('click', () => {
+  words.forEach(w => w.known = false);
+  saveWords(words);
+  buildDeck();
+  renderCard();
+  renderManage();
+});
+
+// tabs
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// theme toggle
+const themeBtn = document.getElementById('themeBtn');
+function applyStoredTheme() {
+  try {
+    const t = localStorage.getItem('centralperk-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+}
+applyStoredTheme();
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('centralperk-theme', next); } catch (e) {}
+});
+
+// --- manage tab ---
+function renderManage(filter) {
+  const list = document.getElementById('wordList');
+  const empty = document.getElementById('emptyState');
+  const q = (filter || '').trim().toLowerCase();
+  const items = words.filter(w => !q || w.en.toLowerCase().includes(q) || w.fa.includes(q));
+  list.innerHTML = '';
+  empty.style.display = items.length ? 'none' : 'block';
+  items.slice().reverse().forEach(w => {
+    const row = document.createElement('div');
+    row.className = 'word-row';
+    row.innerHTML = `
+      <span class="wr-en en">${escapeHtml(w.en)}</span>
+      <span class="wr-fa">${escapeHtml(w.fa)}</span>
+      ${w.ep ? `<span class="wr-ep">${escapeHtml(w.ep)}</span>` : ''}
+      <button class="wr-del" data-id="${w.id}" title="حذف">✕</button>
+    `;
+    list.appendChild(row);
+  });
+  document.getElementById('footerCount').textContent = faNum(words.length) + ' کلمه در مجموعه';
+  list.querySelectorAll('.wr-del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      words = words.filter(w => w.id !== btn.dataset.id);
+      saveWords(words);
+      buildDeck();
+      renderCard();
+      renderManage(document.getElementById('searchBox').value);
+    });
+  });
+}
+
+document.getElementById('searchBox').addEventListener('input', (e) => {
+  renderManage(e.target.value);
+});
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function parseBulk(text) {
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const out = [];
+  for (const line of lines) {
+    let m = line.match(/^(.+?)\s*[:\-–—]\s*(.+)$/);
+    if (!m) continue;
+    const en = m[1].trim();
+    const fa = m[2].trim();
+    if (en && fa) out.push({ en, fa });
+  }
+  return out;
+}
+
+document.getElementById('addBtn').addEventListener('click', () => {
+  const raw = document.getElementById('bulkInput').value;
+  const ep = document.getElementById('epInput').value.trim();
+  const msg = document.getElementById('addMsg');
+  const parsed = parseBulk(raw);
+  if (parsed.length === 0) {
+    msg.textContent = 'فرمتش رو یه‌بار چک کن: English: معنی فارسی';
+    msg.className = 'msg err';
+    return;
+  }
+  let addedCount = 0;
+  parsed.forEach(p => {
+    const id = 'u' + Date.now() + Math.random().toString(36).slice(2, 7);
+    words.push({ id, en: p.en, fa: p.fa, ep, known: false });
+    addedCount++;
+  });
+  saveWords(words);
+  document.getElementById('bulkInput').value = '';
+  msg.textContent = addedCount + ' کلمه اضافه شد ✓';
+  msg.className = 'msg ok';
+  buildDeck();
+  renderCard();
+  renderManage(document.getElementById('searchBox').value);
+});
+
+// init
+buildDeck();
+renderCard();
+renderManage();
+</script>
+</body>
+</html>
